@@ -51,7 +51,7 @@ def geninputs2():
         
 GEN2 = geninputs2()
 
-def test_divide2(monkeypatch, capsys):
+def test_divide_(monkeypatch, capsys):
     monkeypatch.setattr('builtins.input', lambda _: next(GEN2))
 
     divide()
