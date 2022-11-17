@@ -72,7 +72,20 @@ def sq(num):
     return number
 
 # greetUser()
+## grabs user's name
+## greets them by their entire name
+## names should be strings
+def greetUser(first, middle, last):
+    print("Hello!")
 
+    try:
+        print("Welcome to the program", first, middle, last)
+    except TypeError:
+        return "Invalid input."
+    except:
+        return "something went wrong."
+
+    print("Glad to have you!")
 
 # displayItem()
 
