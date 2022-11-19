@@ -1,5 +1,5 @@
 import pytest
-from corrected_functions import *
+from functions import *
 
 # tests for openFile
 @pytest.mark.parametrize("filename, output", [("dne.txt", "Invalid file."), (101, "Invalid file."), ("testing.txt", "File opened.")])
@@ -108,7 +108,7 @@ def test_sq(num, result):
     assert sq(num) == result
 
 # tests for greetUser
-@pytest.mark.parametrize("first, middle, last, greeting", [("Millie", "Bobby", "Br0wn!!!", "Hello!\nWelcome to the program M!llie Br3nda Br0wn!!!\nGlad to have you!"), (123, 456, 7890, "Names should only contain letters"), ("John", "Doe", "Smith", "Hello!\nWelcome to the program John Doe Smith\nGlad to have you!")])
+@pytest.mark.parametrize("first, middle, last, greeting", [("Millie", "Bobby", "Br0wn!!!", "Hello!\nWelcome to the program Millie Bobby Br0wn!!!\nGlad to have you!"), (123, 456, 7890, "Names should only contain letters"), ("John", "Doe", "Smith", "Hello!\nWelcome to the program John Doe Smith\nGlad to have you!")])
 def test_greetUser(first, middle, last, greeting, capsys):
     greetUser(first, middle, last)
 
