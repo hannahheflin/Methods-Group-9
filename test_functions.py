@@ -1,5 +1,5 @@
 import pytest
-from functions import *
+from corrected_functions import *
 
 # tests for openFile
 @pytest.mark.parametrize("filename, output", [("dne.txt", "Invalid file."), (101, "Invalid file."), ("testing.txt", "File opened.")])
@@ -103,12 +103,12 @@ def test_divide5(monkeypatch, capsys):
     assert captured_stdout.strip() == "Your numbers divided is: 2.75"
 
 # tests for sq
-@pytest.mark.parametrize("num, result", [("five thousand", "Invalid input"), (-4, "Input cannot be negative"), (9, 3), (4.84, 2.2)])
+@pytest.mark.parametrize("num, result", [("five thousand", "Invalid input."), (-4, "Cannot square root a negative."), (9, 3), (4.84, 2.2)])
 def test_sq(num, result):
     assert sq(num) == result
 
 # tests for greetUser
-@pytest.mark.parametrize("first, middle, last, greeting", [("M!llie", "Br3nda", "Br0wn!!!", "Hello!\nWelcome to the program M!llie Br3nda Br0wn!!!\nGlad to have you!"), (123, 456, 7890, "Names should only contain letters"), ("John", "Doe", "Smith", "Hello!\nWelcome to the program John Doe Smith\nGlad to have you!")])
+@pytest.mark.parametrize("first, middle, last, greeting", [("Millie", "Bobby", "Br0wn!!!", "Hello!\nWelcome to the program M!llie Br3nda Br0wn!!!\nGlad to have you!"), (123, 456, 7890, "Names should only contain letters"), ("John", "Doe", "Smith", "Hello!\nWelcome to the program John Doe Smith\nGlad to have you!")])
 def test_greetUser(first, middle, last, greeting, capsys):
     greetUser(first, middle, last)
 
@@ -116,7 +116,7 @@ def test_greetUser(first, middle, last, greeting, capsys):
     assert captured_stdout.strip() == greeting
 
 # tests for displayItem
-@pytest.mark.parametrize("numbers, index, output", [(-3, 0, "No list is given"), ([1, 2.5, -3], 0.1, "Index must be an integer"), ([1, 2.5, -3], "zero", "Index must be an integer"), ([1, 2.5, -3], 3, "Index out of range"), ([1, 2.5, -3], 2, "Your item at 2 index is -3")])
+@pytest.mark.parametrize("numbers, index, output", [(-3, 0, "numbers must be a list and index must be an integer!"), ([1, 2.5, -3], 0.1, "numbers must be a list and index must be an integer!"), ([1, 2.5, -3], "zero", "numbers must be a list and index must be an integer!"), ([1, 2.5, -3], 3, "Index out of range"), ([1, 2.5, -3], 2, "Your item at 2 index is -3")])
 def test_displayItem(numbers, index, output, capsys):
     displayItem(numbers, index)
 

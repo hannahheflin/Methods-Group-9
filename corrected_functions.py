@@ -28,61 +28,96 @@ def numbers(num1, num2):
     except:
         return "something went wrong!"
 
-# dist()
+## takes in two points
+## finds the distance between the points
+def dist(x1, y1, x2, y2):
+    try:
+        dist = (x2 - x1) ** 2 + (y2 - y1) ** 2
+        dist = math.sqrt(dist)
 
+        return dist
+    
+    except TypeError:
+        return "Invalid inputs"
+    
+    except:
+        return "something went wrong!"
 
-# isPalindrome()
+## takes in a string -- reverses it
+## then compares the two
+def isPalindrome(temp):
+    try:
+        test = temp[::-1]
 
+        if(test == temp):
+            return True
 
-# divide()
+        else:
+            return False
+    
+    except TypeError:
+        return "Invalid input"
+
+    except:
+        return "something went wrong!"
+
 ## has input to receive two numbers
 ## divides the two, then outputs the result
 def divide():
     try:
-        num1 = int(input("Enter a number: "))
-        num2 = int(input("Enter another number: "))
-    except TypeError:
-        return "Invalid Inputs."
-    except:
-        return "something went wrong."
+        num1 = float(input("Enter a number: "))
+        num2 = float(input("Enter another number: "))
 
-    try:
         div = num1 / num2
+
+        print("Your numbers divided is:", div)
+
+    except ValueError:
+        print("Invalid inputs")
+
     except ZeroDivisionError:
-        return "Can't divide by 0"
+        print("Cannot divide by 0")
+
     except:
-        return "something went wrong."
+        print("something went wrong!")
 
-    print("Your numbers divided is:", div)
-
-# sq()
 ## returns the squareroot of a particular number
 def sq(num):
     try:
-        number = math.sqrt(num)
+        return math.sqrt(num)
+
     except TypeError:
         return "Invalid input."
+
     except ValueError:
         return "Cannot square root a negative."
+
     except:
         return "something went wrong."
 
-    return number
-
-# greetUser()
 ## grabs user's name
 ## greets them by their entire name
 ## names should be strings
 def greetUser(first, middle, last):
-    print("Hello!")
-
-    try:
+    if not (str(first).isalpha() and str(middle).isalpha() and str(last).isalpha()):
+        print("Names should only contain letters")
+    
+    else:
+        print("Hello!")
         print("Welcome to the program", first, middle, last)
+        print("Glad to have you!")
+
+## takes in a Python list
+## attempts to display the item at the index provided
+def displayItem(numbers, index):
+    try:
+        print("Your item at", index, "index is", numbers[index])
+
     except TypeError:
-        return "Invalid input."
+        print("numbers must be a list and index must be an integer!")
+
+    except IndexError:
+        print("Index out of range")
+
     except:
-        return "something went wrong."
-
-    print("Glad to have you!")
-
-# displayItem()
+        print("something went wrong!")
