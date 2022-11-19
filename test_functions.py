@@ -1,5 +1,5 @@
 import pytest
-from test_functions import *
+from corrected_functions import *
 
 # tests for openFile
 @pytest.mark.parametrize("filename, output", [("dne.txt", "Invalid file."), (101, "Invalid file."), ("testing.txt", "File opened.")])
