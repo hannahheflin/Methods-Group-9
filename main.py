@@ -1,7 +1,7 @@
 from customers import *
-from Furniture import *
+from furniture import *
 from ShoppingCart import *
-from OrderHistory import *
+from orderHistory import *
 
 
 def afterLogin():
