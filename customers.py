@@ -20,22 +20,24 @@ class Customer:
         self.last_name = last
         self.shippingAddress = add
         self.cardNumber = num
-        for x in customers:
-            if x.username == name:
-                return False
-            else:
-                with open("customer.csv", "a", newline='') as file:
-                    writer = csv.writer(file)
-                    row = [self.username, self.password, self.first_name, self.last_name, self.shippingAddress,
-                           self.cardNumber]
-                    writer.writerow(row)
-                return True
+        with open("customer.csv", "a", newline='') as file:
+            writer = csv.writer(file)
+            row = [self.username, self.password, self.first_name, self.last_name, self.shippingAddress,
+                   self.cardNumber]
+            writer.writerow(row)
 
     def edit_add(self, address):
         self.shippingAddress = address
 
     def edit_card(self, card):
         self.cardNumber = card
+
+
+def user_exists(username):
+    for x in customers:
+        if username == x.username:
+            return False
+    return True
 
 
 def process_customer():
@@ -53,7 +55,7 @@ def process_customer():
             customers.append(newcustomer)
 
 
-def login(customers, username, password):
+def login(username, password):
     usernames = []
     for x in customers:
         usernames.append(x.username)
@@ -76,3 +78,10 @@ def rewrite_customer():
             rows.append(row)
         writer = csv.writer(outfile)
         writer.writerows(rows)
+
+
+def delete_account(customer):
+    for x in customers:
+        if x is customer:
+            customers.remove(x)
+    rewrite_customer()
