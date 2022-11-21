@@ -118,6 +118,7 @@ class ShoppingCart:
         productID = []
         quantity = []
 
+        # finds the matching item in the furniture file for the user and make sure the quantity in the cart does not exceed what's in stock
         with open("Cart.csv", "r") as cart:
             cartCSV = csv.DictReader(cart)
 
@@ -137,6 +138,7 @@ class ShoppingCart:
 
                 lineNum += 1
 
+        # calls the other functions and clears the shopping cart
         if len(linesFound) != 0:
             for i in len(productID):
                 Furniture.removeItem(
