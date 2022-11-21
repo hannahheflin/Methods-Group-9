@@ -2,55 +2,6 @@ import csv
 import pandas
 
 
-def getPID(username):
-    data = []
-    with open('cart.csv') as csv_file:
-        csv_reader = csv.reader(csv_file)
-        for row in csv_reader:
-            data.append(row)
-        name = username
-        col = [x[0] for x in data]
-        if name in col:
-            for x in range(0, len(data)):
-                if name == data[x][0]:
-                    # print("Product ID:{}".format (data[x][1]))
-                    # returns the product id
-                    return data[x][1]
-        else:
-            print("User not found")
-
-# GET TOTAL FUNCTION
-def getTotal(username):
-    data1 = [] #cartInfo
-    data2 = [] #furniture info
-    with open('cart.csv') as csv_file:
-        csv_reader = csv.reader(csv_file)
-        for row in csv_reader:
-            data1.append(row)
-
-        with open('furniture.csv') as csv_file:
-            csv_reader = csv.reader(csv_file)
-            for row in csv_reader:
-                data2.append(row)
-
-        furnitureID = int(getPID(username))
-        print('Product id:{} '.format(furnitureID))
-
-    total = 0
-    col = [x[0] for x in data2]
-    if furnitureID in col:
-        print('item found')
-        for x in range (0, len(data2)):
-            if furnitureID == data2[x][0]:
-                print('the card number')
-                total = (data2[x][5]) * (data1[x][2])
-                print("Total Price:{}".format (total))
-    else:
-        print("Total not found")
-    return total
-
-
-
 class OrderHistory:
     def __init__(self, username):
         self.username = username
@@ -92,6 +43,30 @@ class OrderHistory:
                         return data[x][1]
             else:
                 print("User not found")
+                
+    def getTotal(username):
+        data1 = [] #cartInfo
+        data2 = [] #furnitureInfo
+        with open('furniture.csv') as csv_file:
+            csv_reader = csv.reader(csv_file)
+            for row in csv_reader:
+            data2.append(row)
+
+        furnitureID = getPID(username)
+
+        total = 0
+        col = [x[0] for x in data2]
+        if furnitureID in col:
+            print('item found')
+            for x in range (0, len(data2)):
+                if furnitureID == data2[x][0]:
+                    print('the card number')
+                    total = (data2[x][5]) * (data1[x][2])
+                    print("Total Price:{}".format (total))
+        else:
+        print("Item Not Found")
+    return total
+
 
     def getCardInfo(username):
         data = []
@@ -110,11 +85,11 @@ class OrderHistory:
             else:
                 print("Card Info Not Found")
 
-    def addHistory(self, username):
+    def addHistory(self, username, quantitiy):
 
         self.username = username
         self.product_ID = self.getPID(username)
-        self.quantity = self.getQuant(username)
+        self.quantity = quantity
         #self.total_price = self.getTotal(username)
         self.card_used = self.getCardInfo(username)
         with open('OrderHistory.csv', mode='w') as csv_file:

@@ -3,11 +3,14 @@ from Furniture import *
 from ShoppingCart import *
 from OrderHistory import *
 
-
-def afterLogin():
-    # TODO: create an instance of customer, ShoppingCart, and OrderHistory
+def afterLogin(user):
+    current = Customer()
+    for x in customers:
+        if x.username == user:
+            current = x
+    # TODO: create an instance of ShoppingCart, and OrderHistory
     while True:
-        # TODO: display options to view furniture shop, view shopping cart, view order history, manage account, logout, and exit program
+        print("\t1. view all furniture\n\t2. view shopping cart\n\t3. view order history\n\t4. manage account\n\t5. logout\n\t6. exit")
         choice = input("choice: ")
         if choice.strip().lower() == "view all furniture":
             # TODO: display all the furniture
@@ -49,27 +52,29 @@ def afterLogin():
 
         elif choice.strip().lower() == "manage account":
             while True:
-                # TODO: list choices
+                print("\t\t1. go back\n\t\t2. edit shipping info\n\t\t3. edit payment info\n\t\t4. delete account")
                 choice = input("choice: ")
                 if choice.strip().lower() == "go back":
                     break
                 elif choice.strip().lower() == "edit shipping info":
-                    #TODO: prompt for new info
-                    if choice.strip().lower() != "go back":
-                        #TODO: call the class to update user info
+                    newadd = input("New shipping address: ")
+                    if newadd.strip().lower() != "go back":
+                        current.edit_add(newadd)
+                        rewrite_customer()
                         print("info updated!")
                 elif choice.strip().lower() == "edit payment info":
-                    #TODO: prompt for new info
+                    newcard = input("New card number: ")
                     if choice.strip().lower() != "go back":
-                        #TODO: call the class to update user info
+                        current.edit_card(newcard)
+                        rewrite_customer()
                         print("info updated!")
                 elif choice.strip().lower() == "delete account":
                     while True:
-                        # TODO: ask user for confirmation
+                        choice = input("Are you sure you want to delete your account? ")
                         if choice.strip().lower() == "no" or choice.strip().lower() == "go back":
                             break
                         elif choice.strip().lower() == "yes":
-                            # TODO: call delete customer
+                            delete_account(current)
                             return
                         else:
                             print("try again")
@@ -85,38 +90,60 @@ def afterLogin():
 
 
 # TODO: create an instance of Furniture
+process_customer()
 
 while True:
-    # TODO: display welcome message and the 3 options
+    # Display welcome message
+    print("Welcome!\n1. Login\n2. Create Account\n3. Exit\n")
     choice = input("What would you like to do? ")
+    # chooses login
     if choice.strip().lower() == "login":
         while True:
-            # TODO: prompt for user's username
+            # ask for username
+            user = input("Username: ")
             if user.strip().lower() == "go back":
                 break
-            # TODO: prompt for user's password
+            # ask for password
+            password = input("Password: ")
             if password.strip().lower() == "go back":
                 break
-            # TODO: calls valid = customers.login() with user.strip() and password.strip()
+            # try to log the user in
+            valid = customers.login(user.stip(), password.strip())
+            # successful login
             if valid:
-                afterLogin()
+                afterLogin(user)
+            # not successful login
             if not valid:
-                # TODO: print a message telling the user that their username/password combo is invalid
+                print("The username and/or password is incorrect.")
                 pass
 
     elif choice.strip().lower() == "create account":
         while True:
-            #TODO: ask for the info step by step
-            # if at anytime they wanna go back then break
-            # call the class function to create customer
-            if valid:
-                #TODO: ask them for their shipping and payment info
-                #TODO: call the class functions to add those
-                #TODO: tell them to use those info to login
+            username = input("\tUsername: ")
+            if username.strip().lower() == "go back":
                 break
-            if not valid:
-                #TODO: tell them the username already exist so try again
-                pass
+            exists = user_exists(username)
+            if exists is False:
+                print("\tThat user name already exists. Please pick a new one.")
+            else:
+                password = input("\tPassword: ")
+                if password.strip().lower() == "go back":
+                    break
+                fn = input("\tFirst Name: ")
+                if fn.strip().lower() == "go back":
+                    break
+                ln = input("\tLast Name: ")
+                if ln.strip().lower() == "go back":
+                    break
+                add = input("\tShipping Address: ")
+                if add.strip().lower() == "go back":
+                    break
+                card = input("\tCredit Card Number: ")
+                if card.strip().lower() == "go back":
+                    break
+                newcustomer = Customer()
+                newcustomer.create_account(username, password, fn, ln, add, card)
+                print("\tAccount Created!")
 
     elif choice.strip().lower() == "exit program":
         exit()
