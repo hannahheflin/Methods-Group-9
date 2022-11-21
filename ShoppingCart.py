@@ -1,7 +1,7 @@
 import csv
 import pandas as pd
-from Furniture import *
-from OrderHistory import *
+#from furniture import *
+from orderHistory import *
 
 
 class ShoppingCart:
@@ -32,7 +32,7 @@ class ShoppingCart:
                 lineNum += 1
 
         # makes sure the total quantity for that item does not exceed what's in stock (and that the item actually exist)
-        """with open("Furniture.csv", "r") as furniture:
+        with open("furniture.csv", "r") as furniture:
             furnitureCSV = csv.DictReader(furniture)
             furnitureFound = 0
 
@@ -45,7 +45,7 @@ class ShoppingCart:
                         break
 
             if not furnitureFound:
-                return -1"""
+                return -1
 
         # if the item has previously been added to user's shopping cart, change that item's quantity in the Cart file
         if found:
@@ -98,17 +98,22 @@ class ShoppingCart:
             return -1
 
     def displayCart(self):
+        print()
+        print('{0: <13}'.format("Product ID"), '{0: <15}'.format("Product Name"), '{0: <10}'.format("Category"), '{0: <10}'.format("Designer"), '{0: <10}'.format("Price"), '{0: <10}'.format("Quantity"))
+        print('{0: <13}'.format("----------"), '{0: <15}'.format("------------"), '{0: <10}'.format("--------"), '{0: <10}'.format("--------"), '{0: <10}'.format("-----"), '{0: <10}'.format("--------"))
+        print()
+        
         with open("Cart.csv", "r") as cart:
             cartCSV = csv.DictReader(cart)
 
             for line in cartCSV:
                 if line["username"].strip() == self.__username:
-                    with open("Furniture.csv", "r") as furniture:
+                    with open("furniture.csv", "r") as furniture:
                         furnitureCSV = csv.DictReader(furniture)
 
                         for line2 in furnitureCSV:
                             if line2["productID"].strip() == line["productID"].strip():
-                                print('{0: <10}'.format(line["productID"].strip()), '{0: <10}'.format(line2["productName"].strip()), '{0: <10}'.format(line2["category"].strip(
+                                print('{0: <13}'.format(line["productID"].strip()), '{0: <15}'.format(line2["productName"].strip()), '{0: <10}'.format(line2["category"].strip(
                                 )), '{0: <10}'.format(line2["designer"].strip()), '{0: <10}'.format(line2["price"].strip()), '{0: <10}'.format(line["quantity"].strip()))
                                 break
 
@@ -124,7 +129,7 @@ class ShoppingCart:
 
             for line in cartCSV:
                 if line["username"].strip() == self.__username:
-                    with open("Furniture.csv", "r") as furniture:
+                    with open("furniture.csv", "r") as furniture:
                         furnitureCSV = csv.DictReader(furniture)
 
                         for line2 in furnitureCSV:
@@ -140,10 +145,10 @@ class ShoppingCart:
 
         # calls the other functions and clears the shopping cart
         if len(linesFound) != 0:
-            for i in len(productID):
-                Furniture.removeItem(
+            for i in range(len(productID)):
+                furniture.removeItem(
                     productID[i], quantity[i])
-                OrderHistory.addHistory(
+                orderHistory.addHistory(
                     productID[i], quantity[i])
             df = pd.read_csv("Cart.csv")
             df = df.drop(linesFound)
