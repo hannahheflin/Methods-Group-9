@@ -85,11 +85,11 @@ class OrderHistory:
             else:
                 print("Card Info Not Found")
 
-    def addHistory(self, username):
+    def addHistory(self, username, quantitiy):
 
         self.username = username
         self.product_ID = self.getPID(username)
-        self.quantity = self.getQuant(username)
+        self.quantity = quantity
         #self.total_price = self.getTotal(username)
         self.card_used = self.getCardInfo(username)
         with open('OrderHistory.csv', mode='w') as csv_file:
