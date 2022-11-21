@@ -5,26 +5,21 @@ customers = []
 
 
 class Customer:
-    def __init__(self):
-        self.username = None
-        self.password = None
-        self.first_name = None
-        self.last_name = None
-        self.shippingAddress = None
-        self.cardNumber = None
-
-    def create_account(self, name, password, first, last, add, num):
+    def __init__(self, name=None, password=None, first=None, last=None, add=None, num=None):
         self.username = name
         self.password = password
         self.first_name = first
         self.last_name = last
         self.shippingAddress = add
         self.cardNumber = num
-        with open("customer.csv", "a", newline='') as file:
+
+    def create_account(self):
+        with open("customers.csv", "a", newline='') as file:
             writer = csv.writer(file)
             row = [self.username, self.password, self.first_name, self.last_name, self.shippingAddress,
                    self.cardNumber]
             writer.writerow(row)
+        customers.append(self)
 
     def edit_add(self, address):
         self.shippingAddress = address
@@ -34,7 +29,7 @@ class Customer:
 
 
 def process_customer():
-    with open("customer.csv") as file:
+    with open("customers.csv") as file:
         csvreader = csv.reader(file, delimiter=',')
         for row in csvreader:
             username = row[0]
@@ -43,12 +38,11 @@ def process_customer():
             ln = row[3]
             add = row[4]
             card = row[5]
-            newcustomer = Customer()
-            newcustomer.create_account(username, password, fn, ln, add, card)
+            newcustomer = Customer(username, password, fn, ln, add, card)
             customers.append(newcustomer)
 
 
-def login(customers, username, password):
+def login(username, password):
     usernames = []
     for x in customers:
         usernames.append(x.username)
@@ -63,10 +57,10 @@ def login(customers, username, password):
 
 
 def rewrite_customer():
-    with open("customer.csv", "w", newline='') as outfile:
+    with open("customers.csv", "w", newline='') as outfile:
         rows = []
         for x in customers:
-            row = [x.username, x.password, x.firstName, x.lastName, x.shippingAddress,
+            row = [x.username, x.password, x.first_name, x.last_name, x.shippingAddress,
                    x.cardNumber]
             rows.append(row)
         writer = csv.writer(outfile)

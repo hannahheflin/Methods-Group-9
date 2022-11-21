@@ -1,7 +1,7 @@
 import csv
 import pandas as pd
-from Furniture import *
-from OrderHistory import *
+#from Furniture import *
+#from OrderHistory import *
 
 
 class ShoppingCart:
@@ -139,14 +139,14 @@ class ShoppingCart:
                 lineNum += 1
 
         # calls the other functions and clears the shopping cart
-        if len(linesFound) != 0:
-            for i in len(productID):
-                Furniture.removeItem(
-                    productID[i], quantity[i])
-                OrderHistory.addHistory(
-                    productID[i], quantity[i])
-            df = pd.read_csv("Cart.csv")
-            df = df.drop(linesFound)
-            df.to_csv("Cart.csv", index=False)
+#        if len(linesFound) != 0:
+#            for i in len(productID):
+#                Furniture.removeItem(
+#                    productID[i], quantity[i])
+#                OrderHistory.addHistory(
+#                    productID[i], quantity[i])
+#            df = pd.read_csv("Cart.csv")
+#            df = df.drop(linesFound)
+#            df.to_csv("Cart.csv", index=False)
 
-        return 0
+#        return 0

@@ -1,7 +1,8 @@
 from customers import *
-from Furniture import *
+#from Furniture import *
 from ShoppingCart import *
-from OrderHistory import *
+#from OrderHistory import *
+
 
 def afterLogin(user):
     current = Customer()
@@ -10,7 +11,7 @@ def afterLogin(user):
             current = x
     # TODO: create an instance of ShoppingCart, and OrderHistory
     while True:
-        print("\t1. view all furniture\n\t2. view shopping cart\n\t3. view order history\n\t4. manage account\n\t5. logout\n\t6. exit")
+        print("1. view all furniture\n2. view shopping cart\n3. view order history\n4. manage account\n5. logout\n6. exit")
         choice = input("choice: ")
         if choice.strip().lower() == "view all furniture":
             # TODO: display all the furniture
@@ -52,7 +53,7 @@ def afterLogin(user):
 
         elif choice.strip().lower() == "manage account":
             while True:
-                print("\t\t1. go back\n\t\t2. edit shipping info\n\t\t3. edit payment info\n\t\t4. delete account")
+                print("1. go back\n2. edit shipping info\n3. edit payment info\n4. delete account")
                 choice = input("choice: ")
                 if choice.strip().lower() == "go back":
                     break
@@ -108,7 +109,7 @@ while True:
             if password.strip().lower() == "go back":
                 break
             # try to log the user in
-            valid = customers.login(user.stip(), password.strip())
+            valid = login(user.strip(), password.strip())
             # successful login
             if valid:
                 afterLogin(user)
@@ -119,32 +120,32 @@ while True:
 
     elif choice.strip().lower() == "create account":
         while True:
-            username = input("\tUsername: ")
+            username = input("Username: ")
             if username.strip().lower() == "go back":
                 break
             exists = user_exists(username)
             if exists is False:
-                print("\tThat user name already exists. Please pick a new one.")
+                print("That user name already exists. Please pick a new one.")
             else:
-                password = input("\tPassword: ")
+                password = input("Password: ")
                 if password.strip().lower() == "go back":
                     break
-                fn = input("\tFirst Name: ")
+                fn = input("First Name: ")
                 if fn.strip().lower() == "go back":
                     break
-                ln = input("\tLast Name: ")
+                ln = input("Last Name: ")
                 if ln.strip().lower() == "go back":
                     break
-                add = input("\tShipping Address: ")
+                add = input("Shipping Address: ")
                 if add.strip().lower() == "go back":
                     break
-                card = input("\tCredit Card Number: ")
+                card = input("Credit Card Number: ")
                 if card.strip().lower() == "go back":
                     break
-                newcustomer = Customer()
-                newcustomer.create_account(username, password, fn, ln, add, card)
-                print("\tAccount Created!")
-
+                newcustomer = Customer(username, password, fn, ln, add, card)
+                newcustomer.create_account()
+                print("Account Created!")
+                break
     elif choice.strip().lower() == "exit program":
         exit()
     else:
