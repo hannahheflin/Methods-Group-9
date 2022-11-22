@@ -115,7 +115,8 @@ class ShoppingCart:
                             if line2["productID"].strip() == line["productID"].strip():
                                 print('{0: <13}'.format(line["productID"].strip()), '{0: <15}'.format(line2["productName"].strip()), '{0: <10}'.format(line2["category"].strip(
                                 )), '{0: <10}'.format(line2["designer"].strip()), '{0: <10}'.format(line2["price"].strip()), '{0: <10}'.format(line["quantity"].strip()))
-                                break
+                                break       
+        print()
 
     def removeAll(self):
         lineNum = 0
@@ -146,10 +147,10 @@ class ShoppingCart:
         # calls the other functions and clears the shopping cart
         if len(linesFound) != 0:
             for i in range(len(productID)):
-                furniture.removeItem(
+                """ furniture.removeItem(
                     productID[i], quantity[i])
                 orderHistory.addHistory(
-                    productID[i], quantity[i])
+                    productID[i], quantity[i]) """
             df = pd.read_csv("Cart.csv")
             df = df.drop(linesFound)
             df.to_csv("Cart.csv", index=False)
