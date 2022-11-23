@@ -1,6 +1,6 @@
 import csv
 import pandas as pd
-#from furniture import *
+from Furniture import *
 from orderHistory import *
 
 
@@ -10,6 +10,7 @@ class ShoppingCart:
         self.__username = user.strip()
         self.__furniture_ID = None
         self.__quantity = 0
+        self.furn = Furniture()
 
     def addItem(self, itemID, quant):
         self.__furniture_ID = itemID.strip()
@@ -107,14 +108,16 @@ class ShoppingCart:
             cartCSV = csv.DictReader(cart)
 
             for line in cartCSV:
+                #print(line)
                 if line["username"].strip() == self.__username:
                     with open("furniture.csv", "r") as furniture:
                         furnitureCSV = csv.DictReader(furniture)
 
                         for line2 in furnitureCSV:
+                            #print(line2)
                             if line2["productID"].strip() == line["productID"].strip():
-                                print('{0: <13}'.format(line["productID"].strip()), '{0: <15}'.format(line2["productName"].strip()), '{0: <10}'.format(line2["category"].strip(
-                                )), '{0: <10}'.format(line2["designer"].strip()), '{0: <10}'.format(line2["price"].strip()), '{0: <10}'.format(line["quantity"].strip()))
+                                print('{0: <13}'.format(line2["productID"].strip()), '{0: <15}'.format(line2["productName"].strip()), '{0: <10}'.format(line2["category"].strip(
+                                )), '{0: <10}'.format(line2["designer"].strip()), '{0: <10}'.format(line2["price"].strip()), '{0: <10}'.format(line.get('quantity').strip()))
                                 break       
         print()
 
@@ -145,14 +148,16 @@ class ShoppingCart:
                 lineNum += 1
 
         # calls the other functions and clears the shopping cart
+        if(len(linesFound) != 0):
+            for i in range(len(productID)):
+                self.furn.removeItem(productID[i], quantity[i])
+
+
         if len(linesFound) != 0:
             for i in range(len(productID)):
-                """ furniture.removeItem(
-                    productID[i], quantity[i])
-                orderHistory.addHistory(
-                    productID[i], quantity[i]) """
-            df = pd.read_csv("Cart.csv")
-            df = df.drop(linesFound)
-            df.to_csv("Cart.csv", index=False)
+
+                df = pd.read_csv("Cart.csv")
+                df = df.drop(linesFound)
+                df.to_csv("Cart.csv", index=False)
 
         return 0

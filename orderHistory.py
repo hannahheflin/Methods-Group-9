@@ -50,7 +50,7 @@ class OrderHistory:
         with open('furniture.csv') as csv_file:
             csv_reader = csv.reader(csv_file)
             for row in csv_reader:
-            data2.append(row)
+                data2.append(row)
 
         furnitureID = getPID(username)
 
@@ -64,8 +64,8 @@ class OrderHistory:
                     total = (data2[x][5]) * (data1[x][2])
                     print("Total Price:{}".format (total))
         else:
-        print("Item Not Found")
-    return total
+            print("Item Not Found")
+        return total
 
 
     def getCardInfo(username):
