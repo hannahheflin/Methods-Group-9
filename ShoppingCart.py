@@ -133,7 +133,7 @@ class ShoppingCart:
 
             for line in cartCSV:
                 if line["username"].strip() == self.__username:
-                    with open("furniture.csv", "r") as furniture:
+                    with open("Furniture.csv", "r") as furniture:
                         furnitureCSV = csv.DictReader(furniture)
 
                         for line2 in furnitureCSV:
@@ -145,11 +145,13 @@ class ShoppingCart:
                                     quantity.append(float(line["quantity"]))
                                     linesFound.append(lineNum)
 
+                        furniture.close()
+
                 lineNum += 1
 
         # calls the other functions and clears the shopping cart
         if(len(linesFound) != 0):
-            for i in range(len(productID)):
+            for i in range(0, len(productID)):
                 self.furn.removeItem(productID[i], quantity[i])
 
 
