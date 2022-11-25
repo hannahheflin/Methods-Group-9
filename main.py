@@ -16,29 +16,32 @@ def afterLogin(user):
     while True:
         print("\nPlease select an option\n1. view all furniture\n2. view shopping cart\n3. view order history\n4. manage account\n5. logout\n6. exit")
         choice = input("choice: ")
+        
         if choice.strip().lower() == "view all furniture" or choice.strip() == "1":
-            # TODO: display all the furniture
-            #while True:
-             #   doubleBreak = 0 #flag variable 
-              #  itemID = input(
-              #      "Please insert the furniture ID of the furniture that you want to add to cart or type 'go back' to go back: ")
-              #  if itemID.strip().lower() == "go back":
-              #      break
-              #  else:
-               #     while True:
-             #           quant = input("how many of that item do you want to add? ")
-              #          if quant.strip().lower() == "go back":
-               ##            break
-                 #       try:
-                  #          quant = int(quant.strip())
-                   #         break
-                    ##       print("quantity must be an integer!")
-                            
-                    furniture.displayInventory()
-
-                    #if not doubleBreak:
-                     #   validItem = userCart.addItem(itemID.strip(), quant)
-                      ####   print("\nFailed to add the item. Make sure the item ID is correct and quantity is in stock\n")
+            while True:
+                furniture.displayInventory()
+                doubleBreak = 0 #flag variable 
+                itemID = input(
+                    "\nPlease insert the furniture ID of the furniture that you want to add to cart or type 'go back' to go back: ")
+                if itemID.strip().lower() == "go back":
+                    break
+                else:
+                    while True:
+                        quant = input("how many of that item do you want to add? ")
+                        if quant.strip().lower() == "go back":
+                            doubleBreak = 1
+                            break
+                        try:
+                            quant = int(quant.strip())
+                            break
+                        except:
+                            print("quantity must be an integer!")
+                    if not doubleBreak:
+                        validItem = userCart.addItem(itemID.strip(), quant)
+                        if validItem == 0:
+                            print("Item successfully added!")
+                        else:
+                            print("\nFailed to add the item. Make sure the item ID is correct and quantity being inputted into your cart does not exceed what is in stock")
 
         elif choice.strip().lower() == "view shopping cart" or choice.strip() == "2":
             while True:
@@ -51,12 +54,11 @@ def afterLogin(user):
                     while True:
                         doubleBreak = 0 #flag variable 
                         userCart.displayCart()
-                        #Gather information regarding Remove Furniture from Cart option / sanitize / errors
+                        # removing furniture from the user's CART, not from store inventory
                         try:
                             itemID = input("Type the furniture ID of the furniture that you wish to be removed or 'go back' to go back: ")
                             if itemID.strip().lower() == "go back":
                                 break
-
                             while True:
                                 quant = input("How many of that item do you wish to remove? ")
                                 if quant.strip().lower() == "go back":
@@ -67,20 +69,16 @@ def afterLogin(user):
                                     break
                                 except:
                                     print("quantity must be an integer!")
-
-                            break
                         except:
                             print("\n** Error! **\n")
-                
 
-                    furniture.removeItem(itemID, quant)
-
-                        #if not doubleBreak:
-                         ##   valid = userCart.removeItem(itemID.strip(), quant)
-                          #  if valid == 0:
-                           #     print("Item successfully removed")
-                           # else:
-                           #     print("\nFailed to remove the item. Make sure that you entered the correct item ID")  
+                        if not doubleBreak:
+                           valid = userCart.removeItem(itemID.strip(), quant)
+                           if valid == 0:
+                               print("Item successfully removed")
+                           else:
+                               print("\nFailed to remove the item. Make sure that you entered the correct item ID")  
+                               
                 elif choice.strip().lower() == "checkout" or choice.strip() == "3":
                     valid = userCart.removeAll()
                     if valid == 0:
@@ -135,8 +133,6 @@ def afterLogin(user):
         else:
             print("\nunknown command")
 
-
-# TODO: create an instance of Furniture
 process_customer()
 
 while True:
