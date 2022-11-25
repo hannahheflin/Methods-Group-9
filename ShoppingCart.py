@@ -11,6 +11,7 @@ class ShoppingCart:
         self.__furniture_ID = None
         self.__quantity = 0
         self.furn = Furniture()
+        #self.hist = OrderHistory(user)
 
     def addItem(self, itemID, quant):
         self.__furniture_ID = itemID.strip()
@@ -107,17 +108,15 @@ class ShoppingCart:
         with open("Cart.csv", "r") as cart:
             cartCSV = csv.DictReader(cart)
 
-            for line in cartCSV:
-                #print(line)
+            for line in cartCSV:      
                 if line["username"].strip() == self.__username:
                     with open("furniture.csv", "r") as furniture:
                         furnitureCSV = csv.DictReader(furniture)
 
-                        for line2 in furnitureCSV:
-                            #print(line2)
+                        for line2 in furnitureCSV:                
                             if line2["productID"].strip() == line["productID"].strip():
                                 print('{0: <13}'.format(line2["productID"].strip()), '{0: <15}'.format(line2["productName"].strip()), '{0: <10}'.format(line2["category"].strip(
-                                )), '{0: <10}'.format(line2["designer"].strip()), '{0: <10}'.format(line2["price"].strip()), '{0: <10}'.format(line.get('quantity').strip()))
+                                )), '{0: <10}'.format(line2["designer"].strip()), '{0: <10}'.format(line2["price"].strip()), '{0: <10}'.format(line["quantity"].strip()))
                                 break       
         print()
 
@@ -144,22 +143,16 @@ class ShoppingCart:
                                     productID.append(line["productID"].strip())
                                     quantity.append(float(line["quantity"]))
                                     linesFound.append(lineNum)
-
-                        furniture.close()
-
                 lineNum += 1
 
         # calls the other functions and clears the shopping cart
-        if(len(linesFound) != 0):
+        if len(linesFound) != 0:
             for i in range(0, len(productID)):
                 self.furn.removeItem(productID[i], quantity[i])
+                #self.hist.addHistory(productID[i], quantity[i])
 
-
-        if len(linesFound) != 0:
-            for i in range(len(productID)):
-
-                df = pd.read_csv("Cart.csv")
-                df = df.drop(linesFound)
-                df.to_csv("Cart.csv", index=False)
+            df = pd.read_csv("Cart.csv")
+            df = df.drop(linesFound)
+            df.to_csv("Cart.csv", index=False)
 
         return 0
