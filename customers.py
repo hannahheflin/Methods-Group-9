@@ -49,11 +49,13 @@ def login(username, password):
     try:
         index = usernames.index(username)
     except:
-        return False, 0
+        return False, "user"
     if username in usernames:
         temp = customers[index]
         if temp.password == password:
-            return True, index
+            return True, "Success"
+        else:
+            return False, "pass"
 
 
 def rewrite_customer():

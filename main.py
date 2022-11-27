@@ -152,14 +152,17 @@ while True:
             if password.strip().lower() == "go back":
                 break
             # try to log the user in
-            valid = login(user.strip(), password.strip())
+            valid, error = login(user.strip(), password.strip())
             # successful login
             if valid:
                 afterLogin(user)
                 break
             # not successful login
             if not valid:
-                print("\nThe username and/or password is incorrect.\n")
+                if error == "user":
+                    print("\nThat username doesn't exist.\n")
+                elif error == "pass":
+                    print("\nThe password you entered is incorrect.\n")
 
     elif choice.strip().lower() == "create account" or choice.strip() == "2":
         while True:
