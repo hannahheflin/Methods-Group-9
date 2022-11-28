@@ -1,6 +1,6 @@
 productID,productName,category,designer,price,quantity
-8899,rug,living,Osha,40,1
-4565,chair,kitchen,Javier,30,4
+8899,rug,living,Osha,40,0
+4565,chair,kitchen,Javier,30,2
 7584,desk,office,Hanna,54,20
 5555,lamp,office,Kevin,14,25
 7890,coffee-table,living,Haley,77,3

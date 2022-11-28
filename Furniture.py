@@ -24,8 +24,12 @@ class Furniture:
 				print(f'\n\t{", ".join(row)}\n\t-----------------------------------------------------------\n')
 				lineCount+=1
 			else:
-				print(f'\t{row[0]} ||| {row[1]} ||| {row[2]}, {row[3]}, {row[4]} ||| {row[5]} |||\n')
-				lineCount+=1
+				if(int(row[5]) != 0):
+					print(row[5])
+					print(f'\t{row[0]} ||| {row[1]} ||| {row[2]}, {row[3]}, {row[4]} ||| {row[5]} |||\n')
+					lineCount+=1
+				else:
+					lineCount+=1
 		
 		f.close()
 
@@ -72,11 +76,8 @@ class Furniture:
 		#print(len(self.rows))
 		for i in range(0, len(self.itemDelID)):
 			for row in self.rows:
-				if(row[0] == str(self.itemDelID[i]) and self.itemDelQ[i] > 0):
+				if(row[0] == str(self.itemDelID[i]) and self.itemDelQ[i] >= 0):
 					row[5] = str(self.itemDelQ[i])
-
-				elif(row[0] == str(self.itemDelID[i]) and self.itemDelQ[i] == 0):
-					self.rows.remove(row)
 					#print('here1\n\n')
 
 				elif(row[0] == str(self.itemDelID[i]) and self.itemDelQ[i] < 0):
