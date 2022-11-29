@@ -11,7 +11,7 @@ class ShoppingCart:
         self.__furniture_ID = None
         self.__quantity = 0
         self.furn = Furniture()
-        #self.hist = OrderHistory(user)
+        #self.hist = orderHistory(user)
 
     def addItem(self, itemID, quant):
         self.__furniture_ID = itemID.strip()
@@ -100,10 +100,9 @@ class ShoppingCart:
             return -1
 
     def displayCart(self):
-        print()
-        print('{0: <13}'.format("Product ID"), '{0: <15}'.format("Product Name"), '{0: <10}'.format("Category"), '{0: <10}'.format("Designer"), '{0: <10}'.format("Price"), '{0: <10}'.format("Quantity"))
-        print('{0: <13}'.format("----------"), '{0: <15}'.format("------------"), '{0: <10}'.format("--------"), '{0: <10}'.format("--------"), '{0: <10}'.format("-----"), '{0: <10}'.format("--------"))
-        print()
+        print("\n** " + self.__username.strip() + "'s Shopping Cart **\n")
+        print("\t", '{0: <13}'.format("Product ID"), '{0: <15}'.format("Product Name"), '{0: <12}'.format("Category"), '{0: <12}'.format("Designer"), '{0: <9}'.format("Price"), '{0: <10}'.format("Quantity"))
+        print("\t", '{0: <13}'.format("----------"), '{0: <15}'.format("------------"), '{0: <12}'.format("--------"), '{0: <12}'.format("--------"), '{0: <9}'.format("-----"), '{0: <10}'.format("--------"), "\n")
         
         with open("Cart.csv", "r") as cart:
             cartCSV = csv.DictReader(cart)
@@ -115,12 +114,12 @@ class ShoppingCart:
 
                         for line2 in furnitureCSV:                
                             if line2["productID"].strip() == line["productID"].strip():
-                                print('{0: <13}'.format(line2["productID"].strip()), '{0: <15}'.format(line2["productName"].strip()), '{0: <10}'.format(line2["category"].strip(
-                                )), '{0: <10}'.format(line2["designer"].strip()), '{0: <10}'.format(line2["price"].strip()), '{0: <10}'.format(line["quantity"].strip()))
+                                print("\t", '{0: <13}'.format(line2["productID"].strip()), '{0: <15}'.format(line2["productName"].strip()), '{0: <12}'.format(line2["category"].strip(
+                                )), '{0: <12}'.format(line2["designer"].strip()), '{0: <9}'.format(line2["price"].strip()), '{0: <10}'.format(line["quantity"].strip()))
                                 break       
         print()
 
-    def removeAll(self):
+    def checkout(self):
         lineNum = 0
         linesFound = []
         productID = []
@@ -156,3 +155,22 @@ class ShoppingCart:
             df.to_csv("Cart.csv", index=False)
 
         return 0
+    
+    def clearCart(self):
+        lineNum = 0
+        linesFound = []
+        
+        with open("Cart.csv", "r") as cart:
+            cartCSV = csv.DictReader(cart)
+
+            for line in cartCSV:
+                if line["username"].strip() == self.__username:
+                    linesFound.append(lineNum)
+                
+                lineNum += 1
+        
+        if len(linesFound) != 0:
+            df = pd.read_csv("Cart.csv")
+            df = df.drop(linesFound)
+            df.to_csv("Cart.csv", index=False)
+                    
