@@ -25,7 +25,7 @@ class Furniture:
 				lineCount+=1
 			else:
 				if(int(row[5]) != 0):
-					print(row[5])
+					#print(row[5])
 					print(f'\t{row[0]} ||| {row[1]} ||| {row[2]}, {row[3]}, {row[4]} ||| {row[5]} |||\n')
 					lineCount+=1
 				else:

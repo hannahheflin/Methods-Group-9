@@ -33,7 +33,10 @@ def afterLogin(user):
                             break
                         try:
                             quant = int(quant.strip())
-                            break
+                            if quant <= 0:
+                                print("quantity must be a positive number!")
+                            else:
+                                break
                         except:
                             print("quantity must be an integer!")
                     if not doubleBreak:
@@ -66,7 +69,10 @@ def afterLogin(user):
                                     break
                                 try:
                                     quant = int(quant.strip())
-                                    break
+                                    if quant <= 0:
+                                        print("quantity must be a positive number!")
+                                    else:
+                                        break
                                 except:
                                     print("quantity must be an integer!")
                         except:
@@ -80,7 +86,7 @@ def afterLogin(user):
                                print("\nFailed to remove the item. Make sure that you entered the correct item ID")  
                                
                 elif choice.strip().lower() == "checkout" or choice.strip() == "3":
-                    valid = userCart.removeAll()
+                    valid = userCart.checkout()
                     if valid == 0:
                         print("\nThank you. Your order has been processed")
                         break
@@ -117,6 +123,8 @@ def afterLogin(user):
                         if choice.strip().lower() == "no" or choice.strip().lower() == "go back":
                             break
                         elif choice.strip().lower() == "yes":
+                            userCart.clearCart()
+                            #TODO: clear user's order history
                             delete_account(current)
                             return
                         else:
