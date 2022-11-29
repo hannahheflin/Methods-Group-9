@@ -141,7 +141,6 @@ while True:
     choice = input("What would you like to do? ")
     # chooses login
     if choice.strip().lower() == "login" or choice.strip() == "1":
-        #FIXME: implement validity checks for users tryna login with a username that hasnt been made yet
         while True:
             # ask for username
             user = input("Username: ")
