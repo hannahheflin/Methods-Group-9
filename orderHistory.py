@@ -77,7 +77,7 @@ class orderHistory:
                 for row in csv_reader:
                     data2.append(row)
 
-            furnitureID = int(getPID(username))
+            furnitureID = int(self.getPID(username))
             print('Product id:{} '.format(furnitureID))
 
         total = 0
