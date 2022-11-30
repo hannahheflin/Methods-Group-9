@@ -1,9 +1,8 @@
 import csv
 import pandas
-from ShoppingCart import *
 
 
-class OrderHistory:
+class orderHistory:
 
     def __init__(self, username):
         self.username = username.strip()
