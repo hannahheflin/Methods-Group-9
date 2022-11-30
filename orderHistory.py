@@ -62,35 +62,35 @@ class orderHistory:
             else:
                 print("Card Info Not Found")
 
-    def getTotal(self):
-        username = self.username
-        data1 = []  # cartInfo holds the quantity 
-        data2 = []  # furniture info holds the price 
-        # these are connected by ProductID
-        with open('cart.csv') as csv_file:
-            csv_reader = csv.reader(csv_file)
-            for row in csv_reader:
-                data1.append(row)
+        def getTotal(self):
+            username = self.username
+            data1 = []  # cartInfo holds the quantity
+            data2 = []  # furniture info holds the price
+            # these are connected by ProductID
+            with open('cart.csv') as csv_file:
+                csv_reader = csv.reader(csv_file)
+                for row in csv_reader:
+                    data1.append(row)
+
+            col = [x[0] for x in data1]
+            if username in col:
+                for x in range(0, len(data1)):
+                    if username == data1[x][0]:
+                        furnitureID = data1[x][1]
+                        quantity = data1[x][2]
 
             with open('furniture.csv') as csv_file:
                 csv_reader = csv.reader(csv_file)
                 for row in csv_reader:
                     data2.append(row)
+                col = [x[0] for x in data2]
+                if furnitureID in col:
+                    for x in range(0, len(data1)):
+                        if furnitureID == data1[x][0]:
+                            price = data2[x][4]
 
-            furnitureID = int(self.getPID(username))
-            print('Product id:{} '.format(furnitureID))
+            total = price * quantity
 
-        total = 0
-        col = [x[0] for x in data2]
-        if furnitureID in col:
-            print('item found')
-            for x in range(0, len(data2)):
-                if furnitureID == data2[x][0]:
-                    print('the card number')
-                    total = (data2[x][5]) * (data1[x][2])
-                    print("Total Price:{}".format(total))
-        else:
-            print("Total not found")
         return total
 
     def addHistory(self, quant):
