@@ -4,14 +4,15 @@ import pandas
 class orderHistory:
 
     def __init__(self, username):
-        self.username = username.strip()
+        self.username = username
         self.productID = None
         self.quantity = 0
+        self.total = 0
         self.cardInfo = 0
 
     def getQuant(self):
         data = []
-        with open('cart.csv') as csv_file:
+        with open('Cart.csv') as csv_file:
             csv_reader = csv.reader(csv_file)
             for row in csv_reader:
                 data.append(row)
@@ -28,7 +29,7 @@ class orderHistory:
 
     def getPID(self):
         data = []
-        with open('cart.csv') as csv_file:
+        with open('Cart.csv') as csv_file:
             csv_reader = csv.reader(csv_file)
             for row in csv_reader:
                 data.append(row)
@@ -43,6 +44,7 @@ class orderHistory:
             else:
                 print("User not found")
 
+
     def getCardInfo(self):
         data = []
         with open('customers.csv') as csv_file:
@@ -53,13 +55,44 @@ class orderHistory:
             col = [x[0] for x in data]
             if self.username in col:
                 for x in range(0, len(data)):
-                    if self.usernname == data[x][0]:
+                    if self.username == data[x][0]:
                         # print the card number
                         # print("Card Used:{}".format (data[x][5]))
                         return data[x][5]
             else:
                 print("Card Info Not Found")
 
+    def getTotal(self):
+        price = 0
+        quantity = 0
+        username = self.username
+        data1 = []  # cartInfo holds the quantity
+        data2 = []  # furniture info holds the price
+        # these are connected by ProductID
+        with open('Cart.csv') as csv_file:
+            csv_reader = csv.reader(csv_file)
+            for row in csv_reader:
+                data1.append(row)
+
+        col = [x[0] for x in data1]
+        if username in col:
+            for x in range(0, len(data1)):
+                if username == data1[x][0]:
+                    furnitureID = data1[x][1]
+                    quantity = data1[x][2]
+
+        with open('Furniture.csv') as csv_file:
+            csv_reader = csv.reader(csv_file)
+            for row in csv_reader:
+                data2.append(row)
+            col = [x[0] for x in data2]
+            if furnitureID in col:
+                for x in range(0, len(data1)):
+                    if furnitureID == data1[x][0]:
+                        price = data2[x][4]
+                        total = price * quantity
+
+                        return total
 
     def addHistory(self, quant):
 
@@ -68,7 +101,7 @@ class orderHistory:
         self.total_price = self.getTotal()
         self.card_used = self.getCardInfo()
 
-        with open('OrderHistory.csv', mode='w') as csv_file:
+        with open('orderHistory.csv', mode='w') as csv_file:
             csv_reader = csv.reader(csv_file)
             fieldnames = ['Username', 'ProductID', 'Item Quant', 'Payment Info']
             writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
@@ -89,4 +122,3 @@ class orderHistory:
                       '\nQuantity:{}'.format(row[2]), '\nCard Used:{}'.format(row[3]))
             else:
                 print("No Order History")
-
