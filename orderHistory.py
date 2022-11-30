@@ -8,9 +8,9 @@ class OrderHistory:
     def __init__(self, username):
         self.username = username.strip()
         self.productID = None
-        self.quantity = None
-        self.total = None
-        self.cardInfo = None
+        self.quantity = 0
+        self.total = 0
+        self.cardInfo = 0
 
     def getQuant(self):
         data = []
