@@ -2,7 +2,7 @@ import csv
 import pandas as pd
 
 
-class OrderHistory:
+class orderHistory:
     def __init__(self, username):
         self.username = username
         self.product_ID = None
