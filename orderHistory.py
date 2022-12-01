@@ -2,7 +2,7 @@ import csv
 import pandas as pd
 
 
-class orderHistory:
+class OrderHistory:
     def __init__(self, username):
         self.username = username
         self.product_ID = None
@@ -21,6 +21,8 @@ class orderHistory:
             if self.username in col:
                 for x in range(0, len(data)):
                     if self.username == data[x][0]:
+                        # print("Product ID:{}".format (data[x][1]))
+                        # returns the product id
                         return data[x][1]
             else:
                 print("User not found")
@@ -33,7 +35,7 @@ class orderHistory:
                     return float(row[4]) * float(self.quantity)
 
     def getCardInfo(self):
-        with open('customers.csv') as csv_file:
+        with open('customerInfo.csv') as csv_file:
             csv_reader = csv.reader(csv_file)
             for row in csv_reader:
                 if row[0].strip() == self.username:
@@ -46,7 +48,7 @@ class orderHistory:
         self.total_price = self.getTotal()
         self.card_used = self.getCardInfo()
 
-        with open('orderHistory.csv', mode='a') as csv_file:
+        with open('orderHistory.csv', mode='a', newline ='') as csv_file:
             csv_reader = csv.reader(csv_file)
             fieldnames = ['Username', 'ProductID', 'Item Quant', 'Payment Info']
             writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
@@ -79,3 +81,4 @@ class orderHistory:
             df = pd.read_csv("orderHistory.csv")
             df = df.drop(linesFound)
             df.to_csv("orderHistory.csv", index=False)
+
