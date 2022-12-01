@@ -35,7 +35,7 @@ class OrderHistory:
                     return float(row[4]) * float(self.quantity)
 
     def getCardInfo(self):
-        with open('customerInfo.csv') as csv_file:
+        with open('customers.csv') as csv_file:
             csv_reader = csv.reader(csv_file)
             for row in csv_reader:
                 if row[0].strip() == self.username:
