@@ -10,7 +10,7 @@ def afterLogin(user):
     for x in customers:
         if x.username == user:
             current = x
-    # TODO: create an instance of OrderHistory
+    userHist = orderHistory(user)
     userCart = ShoppingCart(user)
     
     while True:
@@ -96,8 +96,7 @@ def afterLogin(user):
                     print("\nunknown command")
 
         elif choice.strip().lower() == "view order history" or choice.strip() == "3":
-            # TODO: list all order history
-            pass
+            userHist.displayHistory()
 
         elif choice.strip().lower() == "manage account" or choice.strip() == "4":
             while True:
@@ -124,7 +123,7 @@ def afterLogin(user):
                             break
                         elif choice.strip().lower() == "yes":
                             userCart.clearCart()
-                            #TODO: clear user's order history
+                            userHist.clearHistory()
                             delete_account(current)
                             return
                         else:

@@ -11,7 +11,7 @@ class ShoppingCart:
         self.__furniture_ID = None
         self.__quantity = 0
         self.furn = Furniture()
-        #self.hist = orderHistory(user)
+        self.hist = orderHistory(user)
 
     def addItem(self, itemID, quant):
         self.__furniture_ID = itemID.strip()
@@ -100,6 +100,7 @@ class ShoppingCart:
             return -1
 
     def displayCart(self):
+        total = 0
         print("\n** " + self.__username.strip() + "'s Shopping Cart **\n")
         print("\t", '{0: <13}'.format("Product ID"), '{0: <15}'.format("Product Name"), '{0: <12}'.format("Category"), '{0: <12}'.format("Designer"), '{0: <9}'.format("Price"), '{0: <10}'.format("Quantity"))
         print("\t", '{0: <13}'.format("----------"), '{0: <15}'.format("------------"), '{0: <12}'.format("--------"), '{0: <12}'.format("--------"), '{0: <9}'.format("-----"), '{0: <10}'.format("--------"), "\n")
@@ -116,8 +117,10 @@ class ShoppingCart:
                             if line2["productID"].strip() == line["productID"].strip():
                                 print("\t", '{0: <13}'.format(line2["productID"].strip()), '{0: <15}'.format(line2["productName"].strip()), '{0: <12}'.format(line2["category"].strip(
                                 )), '{0: <12}'.format(line2["designer"].strip()), '{0: <9}'.format(line2["price"].strip()), '{0: <10}'.format(line["quantity"].strip()))
-                                break       
-        print()
+                                total += float(line["quantity"]) * float(line2["price"])
+                                break 
+        print("\n\t --------------------------------------------------------------------------")   
+        print("\t Total:", total, "\n")   
 
     def checkout(self):
         lineNum = 0
@@ -148,7 +151,7 @@ class ShoppingCart:
         if len(linesFound) != 0:
             for i in range(0, len(productID)):
                 self.furn.removeItem(productID[i], quantity[i])
-                #self.hist.addHistory(productID[i], quantity[i])
+                self.hist.addHistory(productID[i], quantity[i])
 
             df = pd.read_csv("Cart.csv")
             df = df.drop(linesFound)
