@@ -54,7 +54,7 @@ class orderHistory:
                              'Payment Info': self.card_used})
 
     def displayHistory(self):
-        data = []
+        found = 0
         with open('orderHistory.csv') as csv_file:
             csv_reader = csv.reader(csv_file)
             for row in csv_reader:
@@ -65,6 +65,9 @@ class orderHistory:
                             if row2[0].strip() == row[1].strip():
                                 print('\nProduct ID:{}'.format(row[1]), '\nProduct Name: {}'.format(row2[1]), '\nCategory: {}'.format(row2[2]),
                                       '\nDesigner: {}'.format(row2[3]), '\nPrice: {}'.format(row2[4]), '\nQuantity:{}'.format(row[2]), '\nTotal Price:{}'.format(row[3]), '\nCard Used:{}'.format(row[4]))
+                                found = 1
+        if not found:
+            print("\nNo Order History")
 
     def clearHistory(self):
         lineNum = 0
