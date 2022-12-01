@@ -46,7 +46,7 @@ class orderHistory:
         self.quantity = quant
         self.total_price = self.getTotal()
         self.card_used = self.getCardInfo()
-        with open('OrderHistory.csv', mode='a', newline='') as csv_file:
+        with open('orderHistory.csv', mode='a', newline='') as csv_file:
             csv_reader = csv.reader(csv_file)
             fieldnames = ['Username', 'ProductID', 'Item Quant', 'Total Price', 'Payment Info']
             writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
