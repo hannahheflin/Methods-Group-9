@@ -63,8 +63,8 @@ class orderHistory:
                         furn_reader = csv.reader(furniture)
                         for row2 in furn_reader:
                             if row2[0].strip() == row[1].strip():
-                                print('\nProduct ID:{}'.format(row[1]), '\nProduct Name: {}'.format(row2[1]), '\nCategory: {}'.format(row2[2]),
-                                      '\nDesigner: {}'.format(row2[3]), '\nPrice: {}'.format(row2[4]), '\nQuantity:{}'.format(row[2]), '\nTotal Price:{}'.format(row[3]), '\nCard Used:{}'.format(row[4]))
+                                print('\nProduct ID: {}'.format(row[1]), '\nProduct Name: {}'.format(row2[1]), '\nCategory: {}'.format(row2[2]),
+                                      '\nDesigner: {}'.format(row2[3]), '\nPrice: {}'.format(row2[4]), '\nQuantity: {}'.format(row[2]), '\nTotal Price: {}'.format(row[3]), '\nCard Used: {}'.format(row[4]))
                                 found = 1
         if not found:
             print("\nNo Order History")
