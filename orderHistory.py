@@ -2,7 +2,7 @@ import csv
 import pandas as pd
 
 
-class OrderHistory:
+class orderHistory:
     def __init__(self, username):
         self.username = username
         self.product_ID = None
@@ -46,9 +46,12 @@ class OrderHistory:
         self.quantity = quant
         self.total_price = self.getTotal()
         self.card_used = self.getCardInfo()
-        with open('OrderHistory.csv', mode='a') as csv_file:
-            csv_file.write("%s, %s, %d, %d, %s\n" % (self.username,
-                            self.product_ID, self.quantity, self.total_price, self.card_used))
+        with open('OrderHistory.csv', mode='a', newline='') as csv_file:
+            csv_reader = csv.reader(csv_file)
+            fieldnames = ['Username', 'ProductID', 'Item Quant', 'Total Price', 'Payment Info']
+            writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
+            writer.writerow({'Username': self.username, 'ProductID': self.product_ID, 'Item Quant': self.quantity, 'Total Price': self.total_price,
+                             'Payment Info': self.card_used})
 
     def displayHistory(self):
         data = []
