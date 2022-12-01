@@ -2,7 +2,7 @@ import csv
 import pandas as pd
 
 
-class orderHistory:
+class OrderHistory:
     def __init__(self, username):
         self.username = username
         self.product_ID = None
@@ -35,25 +35,20 @@ class orderHistory:
                     return float(row[4]) * float(self.quantity)
 
     def getCardInfo(self):
-        with open('customers.csv') as csv_file:
+        with open('customerInfo.csv') as csv_file:
             csv_reader = csv.reader(csv_file)
             for row in csv_reader:
                 if row[0].strip() == self.username:
                     return row[5]
 
-    def addHistory(self, quant):
-
-        self.product_ID = self.getPID()
+    def addHistory(self, itemID, quant):
+        self.product_ID = itemID
         self.quantity = quant
         self.total_price = self.getTotal()
         self.card_used = self.getCardInfo()
-
-        with open('orderHistory.csv', mode='a', newline ='') as csv_file:
-            csv_reader = csv.reader(csv_file)
-            fieldnames = ['Username', 'ProductID', 'Item Quant', 'Payment Info']
-            writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-            writer.writerow({'Username': self.username, 'ProductID': self.product_ID, 'Item Quant': self.quantity,
-                             'Payment Info': self.card_used})
+        with open('OrderHistory.csv', mode='a') as csv_file:
+            csv_file.write("%s, %s, %d, %d, %s\n" % (self.username,
+                            self.product_ID, self.quantity, self.total_price, self.card_used))
 
     def displayHistory(self):
         data = []
